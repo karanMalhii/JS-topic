@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, loadImageial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .image-container {
+            /* border: 2px solid red; */
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="image-container">
+        <img src="" alt="" id="image" width="200">
+        <div>
+            <span id="currentImageIndex">1</span> / <span id="totalImageCount">5</span>
+        </div>
+        <div>
+            <button id="previous">PREVIOUS</button>
+            <button id="next">NEXT</button>
+        </div>
+    </div>
+
+    <script>
+        var imagesArray = [
+            'https://images.pexels.com/photos/36753/flower-purple-lical-blosso.jpg?cs=srgb&dl=pexels-pixabay-36753.jpg&fm=jpg',
+
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWFZLFPRrVb2hlWoFOUMkJMO4UsoURq3goS7JNhS_PW934XVCtRmCljo81AP8czaYMMbM&usqp=CAU',
+
+            'https://img.freepik.com/premium-photo/cosmos-flowers-beautiful_44622-223.jpg',
+
+            'https://img.freepik.com/free-photo/natures-beauty-captured-colorful-flower-close-up-generative-ai_188544-8593.jpg?size=626&ext=jpg&ga=GA1.1.1546980028.1701734400&semt=sph',
+
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWFZLFPRrVb2hlWoFOUMkJMO4UsoURq3goS7JNhS_PW934XVCtRmCljo81AP8czaYMMbM&usqp=CAU'
+
+        ];
+
+        // Delare variables
+        let imageElement = document.getElementById("image");
+        let totalImageCountElement = document.getElementById("totalImageCount");
+        let currentImageIndexElement = document.getElementById("currentImageIndex");
+        let previousBtnElement = document.getElementById("previous");
+        let nextBtnElement = document.getElementById("next");
+
+        let imageIndex = 0;
+
+       // Create function to load image 
+        function loadImage(index = 0) {
+
+            imageElement.setAttribute("src", imagesArray[index]);
+
+            // Updating pagination
+            currentImageIndexElement.innerHTML = ++index;
+            totalImageCountElement.innerHTML = imagesArray.length;
+
+        }
+
+        // Show next image on NEXT button click
+        nextBtnElement.addEventListener("click", function () {
+            if (imageIndex === 4) {
+                imageIndex = 0;
+            } else {
+                imageIndex = imageIndex + 1;
+            }
+            loadImage(imageIndex);
+        })
+
+        // Show previous image on PREVIOUS button click
+        previousBtnElement.addEventListener("click", function () {
+            if (imageIndex !== 0) {
+                if (imageIndex === 4) {
+                    imageIndex = 0;
+                } else {
+                    imageIndex = imageIndex - 1;
+                }
+                loadImage(imageIndex);
+            }
+        })
+
+        // Load next image after every 5 seconds
+        setInterval(() => {
+            if (imageIndex === 4) {
+                imageIndex = 0;
+            } else {
+                imageIndex = imageIndex + 1;
+            }
+            loadImage(imageIndex);
+        }, 5000);
+
+        // Load first image in initail page load
+        loadImage();
+
+    </script>
+</body>
+
+</html>
